@@ -4,6 +4,7 @@ var units = "&units=imperial";
 var weatherSearch = "weather?";
 var forecastSearch = "forecast?";
 var cityHistory = [];
+var timeDif = moment.utc().hour() - moment().hour();
 
 //moment display (make a function)
 var today = moment().format("ddd, MMM Do YYYY");
@@ -14,11 +15,11 @@ var day4 = moment().add(4, 'days').format("ddd, MMM Do YYYY");
 var day5 = moment().add(5, 'days').format("ddd, MMM Do YYYY");
 
 $("#currentDate").text("(" + today + ")");
-$("#day1").text("(" + tomorrow + ")");
-$("#day2").text("(" + day2 + ")");
-$("#day3").text("(" + day3 + ")");
-$("#day4").text("(" + day4 + ")");
-$("#day5").text("(" + day5 + ")");
+$("#day1").text(tomorrow);
+$("#day2").text(day2);
+$("#day3").text(day3);
+$("#day4").text(day4);
+$("#day5").text(day5);
 
 
 // check localStorage to see if there are saved cities
@@ -50,6 +51,7 @@ function storeCities() {
 }
 
 function currentWeather(city) {
+    $("#currentCity").empty();
     $("#temperature").empty();
     $("#humidity").empty();
     $("#windSpeed").empty();
@@ -60,6 +62,7 @@ function currentWeather(city) {
 
     $.ajax({url: queryURL, method: "GET"}).then(function(response) {
         console.log(response);
+        $("#currentCity").text(response.name);
         $("#temperature").text(response.main.temp);
         $("#humidity").text(response.main.humidity);
         $("#windSpeed").text(response.wind.speed);
@@ -83,6 +86,19 @@ function forecast(city2) {
     var queryURL2 = baseURL + forecastSearch + cityQuery2 + units + apiKey;
     $.ajax({url: queryURL2, method: "GET"}).then(function(response2) {
         console.log(response2);
+
+        if (moment().hour() <= 8) {
+
+        }
+
+        if (moment().hour() > 8 && moment().hour() <= 16) {
+
+        }
+
+        if (moment().hour() > 16) {
+
+        }
+
         $("#temp1").empty();
         $("#hum1").empty();
         $("#temp2").empty();
