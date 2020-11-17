@@ -1,4 +1,4 @@
-var baseURL = "api.openweathermap.org/data/2.5/";
+var baseURL = "https://api.openweathermap.org/data/2.5/";
 var apiKey = "&APPID=e011d63a481c50706494c8592ffe133e";
 var units = "&units=imperial";
 var weatherSearch = "weather?";
