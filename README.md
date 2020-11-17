@@ -1,7 +1,8 @@
 # Philip-DiPaula-OSU-bootcamp-hwk6
 
 
-
+array manip:
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/unshift
 
 sidebar:
 https://getbootstrap.com/docs/4.5/examples/dashboard/
