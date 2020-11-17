@@ -3,6 +3,10 @@ var apiKey = "&APPID=e011d63a481c50706494c8592ffe133e";
 var units = "&units=imperial";
 var weatherSearch = "weather?";
 var forecastSearch = "forecast?";
+
+var iconBaseURL = "http://openweathermap.org/img/wn/";
+var iconEndURL = "@2x.png";
+
 var cityHistory = [];
 var timeDif = moment.utc().hour() - moment().hour();
 
@@ -35,6 +39,16 @@ if (cityHistory.length > 0) {
     forecast(cityHistory[0]);
 }
 
+function renderHistory() {
+    $(".cityList").empty();
+    cityHistory.forEach(function(searchedCity) {
+        var newCity = $("<li>").text(searchedCity).attr("id", searchedCity).attr("class", "btn city-btn list-group-item").attr("type", "submit").attr("style", "text-align: left;");
+        $(".cityList").append(newCity);
+    });
+}
+
+renderHistory();
+
 function cityDuplicate(city3) {
     duplicate = false;
     cityHistory.forEach(function(citi) {
@@ -52,6 +66,7 @@ function storeCities() {
 
 function currentWeather(city) {
     $("#currentCity").empty();
+    $("#prime").empty();
     $("#temperature").empty();
     $("#humidity").empty();
     $("#windSpeed").empty();
@@ -60,11 +75,10 @@ function currentWeather(city) {
     var cityQuery = "q=" + city;
     var queryURL = baseURL + weatherSearch + cityQuery + units + apiKey;
 
-    console.log(queryURL);
-
     $.ajax({url: queryURL, method: "GET"}).then(function(response) {
         console.log(response);
         $("#currentCity").text(response.name);
+        $("#prime").attr("src", iconBaseURL + response.weather[0].icon + iconEndURL);
         $("#temperature").text(response.main.temp);
         $("#humidity").text(response.main.humidity);
         $("#windSpeed").text(response.wind.speed);
@@ -73,21 +87,28 @@ function currentWeather(city) {
 }
 
 function forecast(city2) {
+    $("#img1").empty();
     $("#temp1").empty();
     $("#hum1").empty();
+
+    $("#img2").empty();
     $("#temp2").empty();
     $("#hum2").empty();
+
     $("#temp3").empty();
     $("#hum3").empty();
+    $("#img3").empty();
+
     $("#temp4").empty();
     $("#hum4").empty();
+    $("#img4").empty();
+
     $("#temp5").empty();
     $("#hum5").empty();
+    $("#img5").empty();
 
     var cityQuery2 = "q=" + city2;
     var queryURL2 = baseURL + forecastSearch + cityQuery2 + units + apiKey;
-
-    console.log(queryURL2);
 
     $.ajax({url: queryURL2, method: "GET"}).then(function(response2) {
         console.log(response2);
@@ -122,6 +143,7 @@ $("#searchButton").on("click", function(event) {
     var cityName = $("#citySearch").val().trim().toLowerCase();
     cityName = cityName.charAt(0).toUpperCase() + cityName.slice(1);
     console.log(cityName);
+    $("#citySearch").empty();
 
     // logic to verify valid input
     // some way to alert user if invalid input was given
@@ -130,9 +152,24 @@ $("#searchButton").on("click", function(event) {
         cityHistory.unshift(cityName);
     }
 
+    console.log(cityHistory);
+
     currentWeather(cityName);
     forecast(cityName);
     storeCities();
+    renderHistory();
 
-    $("#citySearch").empty();
+});
+
+$("#clearHistory").on("click", function(event) {
+    event.preventDefault();
+    cityHistory = [];
+    storeCities();
+    renderHistory();
+});
+
+$(".city-btn").on("click", function(event) {
+    var city3 = $(this).attr("id");
+    currentWeather(city3);
+    forecast(city3);
 });

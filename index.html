@@ -16,18 +16,25 @@
         <div class="container-fluid">
             <div class="row">
                 <nav id="sidebar" class="col-3 bg-light sidebar">
+
                     <h4>Search for a City:</h4>
                     <form class="form-inline my-2 my-lg-0 mb-3">
                         <input id="citySearch" class="form-control mr-sm-2" type="search" placeholder="city name here" aria-label="Search" />
                         <button id="searchButton" class="btn btn-outline-primary" type="submit">Search</button>
                     </form>
-                    <div class="card mt-3" style="width: 12rem;">
+
+                    <h5 class="mt-2">Search History:</h5>
+
+                    <div class="card mt-2" style="width: 12rem;">
                         <ul class="cityList list-group list-group-flush">
                             <li class="list-group-item">
                                 <button id="searchedCity" class="btn city-btn" type="submit">City</button>
                             </li>
                         </ul>                    
                     </div>
+
+                    <button id="clearHistory" class="mt-2 btn btn-outline-primary">Clear History</button>
+
                 </nav>
                 <main class="col-9">
                     <section class="currentWeather card">

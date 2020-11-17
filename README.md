@@ -60,6 +60,9 @@ https://getbootstrap.com/docs/4.5/components/navbar/
 list group/cards:
 https://getbootstrap.com/docs/4.5/components/card/
 
+string manip:
+https://stackoverflow.com/questions/1026069/how-do-i-make-the-first-letter-of-a-string-uppercase-in-javascript
+
 moment:
 https://stackoverflow.com/questions/35441820/moment-js-tomorrow-today-and-yesterday
 
