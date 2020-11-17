@@ -18,8 +18,8 @@
                 <nav id="sidebar" class="col-3 bg-light sidebar">
                     <h4>Search for a City:</h4>
                     <form class="form-inline my-2 my-lg-0 mb-3">
-                        <input class="form-control mr-sm-2" type="search" placeholder="city name here" aria-label="Search" />
-                        <button class="btn btn-outline-primary" type="submit">Search</button>
+                        <input id="citySearch" class="form-control mr-sm-2" type="search" placeholder="city name here" aria-label="Search" />
+                        <button id="searchButton" class="btn btn-outline-primary" type="submit">Search</button>
                     </form>
                     <div class="card mt-3" style="width: 18rem;">
                         <ul class="list-group list-group-flush">
@@ -50,11 +50,11 @@
                 <main class="col-9">
                     <section class="currentWeather card">
                         <div class="card-body">
-                            <h2 class="card-title"><span id="currentCity"></span>Current City</h2>
-                            <p class="card-text">Temperature: <span id="temperature"></span></p>
-                            <p class="card-text">Humidity: <span id="humidity"></span></p>
-                            <p class="card-text">Wind Speed: <span id="windSpeed"></span></p>
-                            <p class="card-text">UV Index: <span id="uv"></span></p>
+                            <h2 class="card-title"><span id="currentCity">Current City</span></h2>
+                            <p class="card-text">Temperature (°F): <span id="temperature">current city temp</span></p>
+                            <p class="card-text">Humidity (%): <span id="humidity">current city humidity</span></p>
+                            <p class="card-text">Wind Speed (mph): <span id="windSpeed">current city wind speed</span></p>
+                            <p class="card-text">UV Index: <span id="uv">current city UV index</span></p>
                         </div>
                     </section>
                     <section id="5day" class="mt-3">
@@ -69,8 +69,8 @@
                                     <div class="card-body">
                                         <h5 class="card-title"><span id="day1">Day1 Date</span></h5>
                                         <img src="..." class="card-image" alt="..." />
-                                        <p class="card-text">Temp: <span id="temp1"></span></p>
-                                        <p class="card-text">Humidity: <span id="hum1"></span></p>
+                                        <p class="card-text">Temp (°F): <span id="temp1"></span></p>
+                                        <p class="card-text">Humidity (%): <span id="hum1"></span></p>
                                     </div>
                                 </div>
                             </div>
@@ -80,8 +80,8 @@
                                     <div class="card-body">
                                         <h5 class="card-title"><span id="day2">Day2 Date</span></h5>
                                         <img src="..." class="card-image" alt="..." />
-                                        <p class="card-text">Temp: <span id="temp2"></span></p>
-                                        <p class="card-text">Humidity: <span id="hum2"></span></p>
+                                        <p class="card-text">Temp (°F): <span id="temp2"></span></p>
+                                        <p class="card-text">Humidity (%): <span id="hum2"></span></p>
                                     </div>
                                 </div>
                             </div>
@@ -91,8 +91,8 @@
                                     <div class="card-body">
                                         <h5 class="card-title"><span id="day3">Day3 Date</span></h5>
                                         <img src="..." class="card-image" alt="..." />
-                                        <p class="card-text">Temp: <span id="temp3"></span></p>
-                                        <p class="card-text">Humidity: <span id="hum3"></span></p>
+                                        <p class="card-text">Temp (°F): <span id="temp3"></span></p>
+                                        <p class="card-text">Humidity (%): <span id="hum3"></span></p>
                                     </div>
                                 </div>
                             </div>
@@ -102,8 +102,8 @@
                                     <div class="card-body">
                                         <h5 class="card-title"><span id="day4">Day4 Date</span></h5>
                                         <img src="..." class="card-image" alt="..." />
-                                        <p class="card-text">Temp: <span id="temp4"></span></p>
-                                        <p class="card-text">Humidity: <span id="hum4"></span></p>
+                                        <p class="card-text">Temp (°F): <span id="temp4"></span></p>
+                                        <p class="card-text">Humidity (%): <span id="hum4"></span></p>
                                     </div>
                                 </div>
                             </div>
@@ -113,8 +113,8 @@
                                     <div class="card-body">
                                         <h5 class="card-title"><span id="day5">Day5 Date</span></h5>
                                         <img src="..." class="card-image" alt="..." />
-                                        <p class="card-text">Temp: <span id="temp5"></span></p>
-                                        <p class="card-text">Humidity: <span id="hum5"></span></p>
+                                        <p class="card-text">Temp (°F): <span id="temp5"></span></p>
+                                        <p class="card-text">Humidity (%): <span id="hum5"></span></p>
                                     </div>
                                 </div>
                             </div>
