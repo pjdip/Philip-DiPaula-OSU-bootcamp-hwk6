@@ -12,11 +12,11 @@ var timeDif = moment.utc().hour() - moment().hour();
 
 //moment display (make a function)
 var today = moment().format("ddd, MMM Do YYYY");
-var tomorrow = moment().add(1, 'days').format("ddd, MMM Do YYYY");
-var day2 = moment().add(2, 'days').format("ddd, MMM Do YYYY");
-var day3 = moment().add(3, 'days').format("ddd, MMM Do YYYY");
-var day4 = moment().add(4, 'days').format("ddd, MMM Do YYYY");
-var day5 = moment().add(5, 'days').format("ddd, MMM Do YYYY");
+var tomorrow = moment().add(1, 'days').format("l");
+var day2 = moment().add(2, 'days').format("l");
+var day3 = moment().add(3, 'days').format("l");
+var day4 = moment().add(4, 'days').format("l");
+var day5 = moment().add(5, 'days').format("l");
 
 $("#currentDate").text("(" + today + ")");
 $("#day1").text(tomorrow);
@@ -148,7 +148,12 @@ $("#searchButton").on("click", function(event) {
     // logic to verify valid input
     // some way to alert user if invalid input was given
 
-    if (cityDuplicate(cityName) === false) {
+    if (cityDuplicate(cityName) === true) {
+        var index = cityHistory.indexOf(cityName);
+        cityHistory.splice(index, 1);
+        cityHistory.unshift(cityName);
+    }
+    else if (cityDuplicate(cityName) === false) {
         cityHistory.unshift(cityName);
     }
 
