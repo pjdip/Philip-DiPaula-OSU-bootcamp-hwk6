@@ -60,6 +60,8 @@ function currentWeather(city) {
     var cityQuery = "q=" + city;
     var queryURL = baseURL + weatherSearch + cityQuery + units + apiKey;
 
+    console.log(queryURL);
+
     $.ajax({url: queryURL, method: "GET"}).then(function(response) {
         console.log(response);
         $("#currentCity").text(response.name);
@@ -84,6 +86,9 @@ function forecast(city2) {
 
     var cityQuery2 = "q=" + city2;
     var queryURL2 = baseURL + forecastSearch + cityQuery2 + units + apiKey;
+
+    console.log(queryURL2);
+
     $.ajax({url: queryURL2, method: "GET"}).then(function(response2) {
         console.log(response2);
 
@@ -115,6 +120,8 @@ function forecast(city2) {
 $("#searchButton").on("click", function(event) {
     event.preventDefault();
     var cityName = $("#citySearch").val().trim().toLowerCase();
+    cityName = cityName.charAt(0).toUpperCase() + cityName.slice(1);
+    console.log(cityName);
 
     // logic to verify valid input
     // some way to alert user if invalid input was given
