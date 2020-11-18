@@ -1,24 +1,32 @@
+// This function dynamically creates the search history list
 function renderHistory() {
+
+    // First the list is emptied, then we loop through every city in the cityHistory array
     $("#cityList").empty();
     cityHistory.forEach(function(searchedCity) {
+        // Creating a new li element for each one and appending them to the ul in the html
         var newCity = $("<li>").text(searchedCity).attr("id", searchedCity).attr("class", "btn city-btn list-group-item").attr("type", "submit").attr("style", "text-align: left;");
         $("#cityList").append(newCity);
     });
+
+    // Adding an event listener to each one
     $(".city-btn").on("click", function(event) {
         event.preventDefault();
         var city3 = $(this).attr("id");
-        currentWeather(city3);
-        forecast(city3);
         var indX = cityHistory.indexOf(city3);
         cityHistory.splice(indX, 1);
         cityHistory.unshift(city3);
+        currentWeather(city3);
+        forecast(city3);
+        storeCities();
+        renderHistory();
     });
 }
 
-function cityDuplicate(city3) {
+function cityDuplicate(city4) {
     duplicate = false;
     cityHistory.forEach(function(citi) {
-        if (citi === city3) {
+        if (citi === city4) {
             duplicate = true;
         }
     });
@@ -65,7 +73,6 @@ function currentWeather(city) {
     });
 }
 
-
 // Since the api gives weather forecast in 3 hour increments
 // There are a lot of ways to go about picking what to display for the 5 day forecast
 // There is an option to go down the rabbit hole in this situation, I'm not going to do that lol
@@ -75,25 +82,6 @@ function currentWeather(city) {
 // Starting with the very last 1 for day 5, and working my way back from there
 // Would ideally use the 16day forecast api for this, but that costs money...
 function forecast(city2) {
-    $("#img1").empty();
-    $("#temp1").empty();
-    $("#hum1").empty();
-
-    $("#img2").empty();
-    $("#temp2").empty();
-    $("#hum2").empty();
-
-    $("#temp3").empty();
-    $("#hum3").empty();
-    $("#img3").empty();
-
-    $("#temp4").empty();
-    $("#hum4").empty();
-    $("#img4").empty();
-
-    $("#temp5").empty();
-    $("#hum5").empty();
-    $("#img5").empty();
 
     var cityQuery2 = "q=" + city2;
     var queryURL2 = baseURL + forecastSearch + cityQuery2 + units + apiKey;
@@ -105,6 +93,9 @@ function forecast(city2) {
             var imgJ = "#img" + j;
             var tempJ = "#temp" + j;
             var humJ = "#hum" + j;
+            $(imgJ).empty();
+            $(tempJ).empty();
+            $(humJ).empty();
             $(imgJ).attr("src", iconBaseURL + response3.list[weatherObj].weather[0].icon + iconEndURL);
             $(tempJ).text(response3.list[weatherObj].main.temp);
             $(humJ).text(response3.list[weatherObj].main.humidity);
