@@ -24,23 +24,17 @@ In order to use this project, simply open the index.html in your favorite browse
 
 ## Credits
 
-Thanks to jQuery [documentation](https://api.jquery.com/category/traversing/tree-traversal/) and [stackoverflow](https://stackoverflow.com/questions/5396754/how-to-get-next-or-previous-attribute-id-in-jquery) for some info on tree-traversal and grabbing html info
 
-Thanks to jQuery documentation for help with using [.each](https://api.jquery.com/JQuery.each/) and manipulating [class attributes](https://api.jquery.com/category/manipulation/class-attribute/) for color-coding my time-blocks
-
-Thanks to moment.js [documentation](https://momentjs.com/docs/#/get-set/hour/)
-
-Thanks to stackoverflow for succinct [textarea manipulation](https://stackoverflow.com/questions/5831413/get-textarea-text-with-javascript-or-jquery) code
 
 Special Thanks to [ChilledCow](https://www.youtube.com/channel/UCSJ4gkVC6NrvII8umztf0Ow) for providing chill lofi beats to code to
 
 ## Badges
 
-![languages](https://img.shields.io/github/languages/count/pjdip/Philip-DiPaula-OSU-bootcamp-hwk5)
-![top-language](https://img.shields.io/github/languages/top/pjdip/Philip-DiPaula-OSU-bootcamp-hwk5)
-![repo-size](https://img.shields.io/github/repo-size/pjdip/Philip-DiPaula-OSU-bootcamp-hwk5)
-![open-issues](https://img.shields.io/github/issues-raw/pjdip/Philip-DiPaula-OSU-bootcamp-hwk5)
-![last-commit](https://img.shields.io/github/last-commit/pjdip/Philip-DiPaula-OSU-bootcamp-hwk5)
+![languages](https://img.shields.io/github/languages/count/pjdip/Philip-DiPaula-OSU-bootcamp-hwk6)
+![top-language](https://img.shields.io/github/languages/top/pjdip/Philip-DiPaula-OSU-bootcamp-hwk6)
+![repo-size](https://img.shields.io/github/repo-size/pjdip/Philip-DiPaula-OSU-bootcamp-hwk6)
+![open-issues](https://img.shields.io/github/issues-raw/pjdip/Philip-DiPaula-OSU-bootcamp-hwk6)
+![last-commit](https://img.shields.io/github/last-commit/pjdip/Philip-DiPaula-OSU-bootcamp-hwk6)
 
 ## License
 
@@ -74,4 +68,6 @@ https://openweathermap.org/weather-data
 https://openweathermap.org/current#data
 
 https://openweathermap.org/forecast5
+
+https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
 

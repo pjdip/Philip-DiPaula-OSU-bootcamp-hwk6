@@ -9,9 +9,9 @@ function renderHistory() {
         var city3 = $(this).attr("id");
         currentWeather(city3);
         forecast(city3);
-/*         var indX = cityHistory.indexOf(city3);
+        var indX = cityHistory.indexOf(city3);
         cityHistory.splice(indX, 1);
-        cityHistory.unshift(city3); */
+        cityHistory.unshift(city3);
     });
 }
 
@@ -40,6 +40,8 @@ function currentWeather(city) {
 
     var cityQuery = "q=" + city;
     var queryURL = baseURL + weatherSearch + cityQuery + units + apiKey;
+    var lat = "lat=";
+    var lon = "&lon=";
 
     $.ajax({url: queryURL, method: "GET"}).then(function(response) {
         $("#currentCity").text(response.name);
@@ -47,7 +49,19 @@ function currentWeather(city) {
         $("#temperature").text(response.main.temp);
         $("#humidity").text(response.main.humidity);
         $("#windSpeed").text(response.wind.speed);
-        $("#uv").text("some stuff I gotta figure out");
+        lat += response.coord.lat;
+        lon += response.coord.lon;
+        var uvQuery = baseURL + uvi + lat + lon + apiKey;
+        $.ajax({url: uvQuery, method: "GET"}).then(function(response2) {
+            $("#uv").text(response2.value).attr("style", "background-color: LawnGreen;");
+            if (response2.value >= 3 && response2.value < 6) {
+                $("#uv").attr("style", "background-color: yellow;");
+            } else if (response2.value >= 6 && response2.value < 8) {
+                $("#uv").attr("style", "background-color: orange;");
+            } else if (response2.value >= 8) {
+                $("#uv").attr("style", "background-color: red;");
+            }
+        });
     });
 }
 
@@ -59,6 +73,7 @@ function currentWeather(city) {
 // There will be only one 3 hour weather object from which to pull data for day 5
 // For simplicity's sake, I will only use 1 data object per day
 // Starting with the very last 1 for day 5, and working my way back from there
+// Would ideally use the 16day forecast api for this, but that costs money...
 function forecast(city2) {
     $("#img1").empty();
     $("#temp1").empty();
@@ -83,39 +98,18 @@ function forecast(city2) {
     var cityQuery2 = "q=" + city2;
     var queryURL2 = baseURL + forecastSearch + cityQuery2 + units + apiKey;
 
-    $.ajax({url: queryURL2, method: "GET"}).then(function(response2) {
+    $.ajax({url: queryURL2, method: "GET"}).then(function(response3) {
 
         var weatherObj = 39;
         for (var j = 1; j < 6; j++) {
             var imgJ = "#img" + j;
             var tempJ = "#temp" + j;
             var humJ = "#hum" + j;
-            $(imgJ).attr("src", iconBaseURL + response2.list[weatherObj].weather[0].icon + iconEndURL);
-            $(tempJ).text(response2.list[weatherObj].main.temp);
-            $(humJ).text(response2.list[weatherObj].main.humidity);
+            $(imgJ).attr("src", iconBaseURL + response3.list[weatherObj].weather[0].icon + iconEndURL);
+            $(tempJ).text(response3.list[weatherObj].main.temp);
+            $(humJ).text(response3.list[weatherObj].main.humidity);
             weatherObj = weatherObj - 8;
          }
-
-/*         $("#img1").attr("src", iconBaseURL + response2.list[39].weather[0].icon + iconEndURL);
-        $("#temp1").text(response2.list[39].main.temp);
-        $("#hum1").text(response2.list[39].main.humidity);
-
-        $("#img2").attr("src", iconBaseURL + response2.list[31].weather[0].icon + iconEndURL);
-        $("#temp2").text(response2.list[31].main.temp);
-        $("#hum2").text(response2.list[31].main.humidity);
-
-        $("#img3").attr("src", iconBaseURL + response2.list[23].weather[0].icon + iconEndURL);
-        $("#temp3").text(response2.list[23].main.temp);
-        $("#hum3").text(response2.list[23].main.humidity);
-
-        $("#img4").attr("src", iconBaseURL + response2.list[15].weather[0].icon + iconEndURL);
-        $("#temp4").text(response2.list[15].main.temp);
-        $("#hum4").text(response2.list[15].main.humidity);
-
-        $("#img5").attr("src", iconBaseURL + response2.list[7].weather[0].icon + iconEndURL);
-        $("#temp5").text(response2.list[7].main.temp);
-        $("#hum5").text(response2.list[7].main.humidity); */
-
     });
 }
 
@@ -124,6 +118,7 @@ var apiKey = "&APPID=e011d63a481c50706494c8592ffe133e";
 var units = "&units=imperial";
 var weatherSearch = "weather?";
 var forecastSearch = "forecast?";
+var uvi = "uvi?";
 
 var iconBaseURL = "http://openweathermap.org/img/wn/";
 var iconEndURL = "@2x.png";
