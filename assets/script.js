@@ -72,6 +72,9 @@ function currentWeather(city) {
     // ajax promise with then function acting on the received json object
     $.ajax({url: queryURL, method: "GET"}).then(function(response) {
 
+        console.log(response);
+        console.log(response.cod);
+
         // navigating the json object and dynamically generating some html with the bits
         $("#currentCity").text(response.name);
         $("#prime").attr("src", iconBaseURL + response.weather[0].icon + iconEndURL);
@@ -188,6 +191,7 @@ $("#searchButton").on("click", function(event) {
 
     // logic to verify valid input
     // some way to alert user if invalid input was given
+    // no idea how to do this lol
 
     // if the searched city is already in the history, remove it
     if (cityDuplicate(cityName) === true) {
