@@ -1,4 +1,3 @@
-
 // Same storage function as previous assignments
 function storeCities() {
     var stringyCities = JSON.stringify(cityHistory);
@@ -30,7 +29,8 @@ function renderHistory() {
         cityHistory.unshift(city3);
 
         // Render and store things
-        renderWeather(city3);
+/*         renderWeather(city3); */
+        oneCallWeather(city3);
         storeRender();
     });
 }
@@ -143,9 +143,50 @@ function forecast(city2) {
     });
 }
 
+function oneCallWeather(lat2, lon2) {
+
+    // empty all the things
+    $("#prime").empty(), $("#temperature").empty();
+    $("#humidity").empty(), $("#windSpeed").empty(), $("#uv").empty();
+
+    var lat = "lat=";
+    lat += lat2;
+    var lon = "&lon=";
+    lon += lon2;
+    var queryURL = oneCallBase + lat + lon + oneCallTail;
+
+    $.ajax({url: queryURL, method: "GET"}).then(function(response) {
+
+        // navigating the json object and dynamically generating some html with the bits
+        $("#prime").attr("src", iconBaseURL + response.current.weather[0].icon + iconEndURL);
+        $("#temperature").text(response.current.temp);
+        $("#humidity").text(response.current.humidity);
+        $("#windSpeed").text(response.current.wind_speed);
+
+        // forecast
+        for (var j = 1; j < 6; j++) {
+
+            // assembling span ID's for each loop and emptying the html elements
+            var imgJ = "#img" + j;
+            var tempJ = "#temp" + j;
+            var humJ = "#hum" + j;
+            $(imgJ).empty(), $(tempJ).empty(), $(humJ).empty();
+
+            // html generation with weather object navigation
+            $(imgJ).attr("src", iconBaseURL + response3.list[weatherObj].weather[0].icon + iconEndURL);
+            $(tempJ).text(response3.list[weatherObj].main.temp);
+            $(humJ).text(response3.list[weatherObj].main.humidity);
+        }
+    });
+}
+
 // bunch of strings for query purposes
 var baseURL = "https://api.openweathermap.org/data/2.5/";
-var apiKey = "&APPID=e011d63a481c50706494c8592ffe133e";
+var apiKey = "&appid=e011d63a481c50706494c8592ffe133e";
+
+var oneCallBase = "https://api.openweathermap.org/data/2.5/onecall?";
+var oneCallTail = "&units=imperial&exclude=minutely,hourly,alerts&appid=e011d63a481c50706494c8592ffe133e";
+
 var units = "&units=imperial";
 var weatherSearch = "weather?";
 var forecastSearch = "forecast?";
@@ -181,6 +222,27 @@ if (cityHistory.length > 0) {
 
 renderHistory();
 
+alert("banana");
+
+function cityInputCheck(city7) {
+    var cityQuery = "q=" + city7;
+    var queryURL = baseURL + weatherSearch + cityQuery + units + apiKey;
+    $.ajax({url: queryURL, method: "GET"}).then(function(response) {
+        if (response.cod !== 200) {
+            alert(response.message);
+            return false;
+        } else {
+            $("#currentCity").empty();
+            $("#currentCity").text(response.name);
+            lat1 = response.coord.lat;
+            lon1 = response.coord.lon;
+            return lat1, lon1;
+        }
+    });
+}
+
+var coords = [];
+
 // search button stuff
 $("#searchButton").on("click", function(event) {
     event.preventDefault();
@@ -190,22 +252,26 @@ $("#searchButton").on("click", function(event) {
     cityName = cityName.charAt(0).toUpperCase() + cityName.slice(1);
     $("#citySearch").empty();
 
-    // logic to verify valid input
-    // some way to alert user if invalid input was given
-    // no idea how to do this lol
+    if (cityInputCheck(cityName) === false) {
 
-    // if the searched city is already in the history, remove it
-    if (cityDuplicate(cityName) === true) {
-        var index = cityHistory.indexOf(cityName);
-        cityHistory.splice(index, 1);
+    } else {
+        coords = cityInputCheck(cityName);
+        console.log(coords);
+        // if the searched city is already in the history, remove it
+        if (cityDuplicate(cityName) === true) {
+            var index = cityHistory.indexOf(cityName);
+            cityHistory.splice(index, 1);
+        }
+        // add searched city to the top of the history
+        cityHistory.unshift(cityName);
+
+        oneCallWeather(coords);
+
+        // render weather and store things
+/*         renderWeather(cityName); */
+        storeRender();
+        $("#citySearch").empty();
     }
-    // add searched city to the top of the history
-    cityHistory.unshift(cityName);
-
-    // render weather and store things
-    renderWeather(cityName);
-    storeRender();
-    $("#citySearch").empty();
 });
 
 // clear the history when clicked
