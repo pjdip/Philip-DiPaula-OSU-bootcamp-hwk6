@@ -1,3 +1,4 @@
+
 // Same storage function as previous assignments
 function storeCities() {
     var stringyCities = JSON.stringify(cityHistory);
